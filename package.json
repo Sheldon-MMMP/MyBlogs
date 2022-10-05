@@ -1,0 +1,31 @@
+{
+  "name": "myblogs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "cross-env NODE_ENV=development next build",
+    "build:pro": "cross-env NODE_ENV=production next build",
+    "dev": "cross-env NODE_ENV=development next"
+  },
+  "author": "Sheldon",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.19.0",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "babel-loader": "^8.2.5",
+    "cross-env": "^7.0.3",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.8.2",
+    "windicss": "^3.5.6",
+    "windicss-webpack-plugin": "^1.7.6"
+  },
+  "dependencies": {
+    "next": "^12.2.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
