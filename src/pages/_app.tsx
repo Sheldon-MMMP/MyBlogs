@@ -1,8 +1,8 @@
 import App from 'next/app'
 import { withRouter } from 'next/router';
 import React from 'react';
-
 import 'windi.css'
+
 
 class MyApp extends App {
   render() {
@@ -11,5 +11,7 @@ class MyApp extends App {
     return <Component {...pageProps}></Component>
   }
 }
+
+
 
 export default withRouter(MyApp)
