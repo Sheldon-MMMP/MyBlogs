@@ -54,7 +54,7 @@ const Home: React.FC = () => {
       </Head>
       <div className="bg-index h-screen w-screen bg-index flex items-center flex-col">
         <div className="w-screen  flex justify-between px-6 mt-8 min-w-220">
-          <Image src="/icon.png" width={34} height={34} ></Image>
+          <Image src="/icon.png" width={34} height={34}></Image>
           <Image src="/Menu.png" width={34} height={34}></Image>
         </div>
         <div className="max-w-600 min-w-280">
@@ -91,7 +91,7 @@ const Home: React.FC = () => {
           <div className="mt-5 mb-10 text-primarily">Please point out any mistakes in the notes.</div>
           <div className="flex flex-wrap w-280 justify-between h-319 content-between">
             {
-              router.map((item, index) => <Link key={index} href={`blog/${item.link}`}><Image className="cursor-pointer" src={item.image} width={540} height={400}></Image></Link>)
+              router.map((item, index) => <Link key={index} href={`blog/${item.link}`}><div><Image className="cursor-pointer" src={item.image} width={540} height={400}></Image></div></Link>)
             }
           </div>
         </div>
