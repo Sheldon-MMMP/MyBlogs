@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head"
 import Image from "next/image"
-import { render } from "react-dom";
 import Link from "next/link";
-import { NextComponentType } from "next";
 
 interface skillTypedefine {
   id: number,
@@ -25,12 +23,12 @@ interface routerdefine {
   link: string
 }
 const router: routerdefine[] = [
-  { id: 1, name: 'html', image: '/html.png', link: 'HTML' },
-  { id: 1, name: 'css', image: '/css.png', link: 'CSS' },
-  { id: 1, name: 'js', image: '/js.png', link: 'JS' },
-  { id: 1, name: 'vue', image: '/vue.png', link: 'VUE' },
-  { id: 1, name: 'react', image: '/react.png', link: 'REACT' },
-  { id: 1, name: 'http', image: '/http.png', link: 'HTTP' },
+  { id: 1, name: 'html', image: '/html.png', link: 'html' },
+  { id: 1, name: 'css', image: '/css.png', link: 'css' },
+  { id: 1, name: 'js', image: '/js.png', link: 'js' },
+  { id: 1, name: 'vue', image: '/vue.png', link: 'vue' },
+  { id: 1, name: 'react', image: '/react.png', link: 'react' },
+  { id: 1, name: 'http', image: '/http.png', link: 'http' },
 ]
 
 interface socialPlatformdefine {
@@ -47,8 +45,6 @@ const socialPlatform: socialPlatformdefine[] = [
 
 const Home: React.FC = () => {
   const [optionIndex, setOptionIndex] = useState(1)
-  useEffect(() => {
-  }, [])
 
   return (
     <div>
