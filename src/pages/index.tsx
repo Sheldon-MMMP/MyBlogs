@@ -2,46 +2,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link";
-
-interface skillTypedefine {
-  id: number,
-  name: string
-}
-
-const skillType: skillTypedefine[] = [
-  { id: 1, name: 'All' },
-  { id: 2, name: 'Web' },
-  { id: 3, name: 'Computer' },
-  { id: 4, name: 'Arithmetic' }
-]
-
-
-interface routerdefine {
-  id: number,
-  name: string,
-  image: string,
-  link: string
-}
-const router: routerdefine[] = [
-  { id: 1, name: 'html', image: '/html.png', link: 'html' },
-  { id: 1, name: 'css', image: '/css.png', link: 'css' },
-  { id: 1, name: 'js', image: '/js.png', link: 'js' },
-  { id: 1, name: 'vue', image: '/vue.png', link: 'vue' },
-  { id: 1, name: 'react', image: '/react.png', link: 'react' },
-  { id: 1, name: 'http', image: '/http.png', link: 'http' },
-]
-
-interface socialPlatformdefine {
-  id: number,
-  name: string,
-  link: string
-}
-const socialPlatform: socialPlatformdefine[] = [
-  { id: 1, name: "JueJin", link: "https://juejin.cn/user/4279763049394365" },
-  { id: 2, name: "GitHub", link: "https://github.com/Sheldon-MMMP" },
-  { id: 3, name: "Gitee", link: "https://gitee.com/wf_Love-1314" },
-  { id: 4, name: "CSDN", link: "https://blog.csdn.net/Alex_ygz?type=blog" }
-]
+import { skillType, router, socialPlatform } from "../local/information"
 
 const Home: React.FC = () => {
   const [optionIndex, setOptionIndex] = useState(1)
@@ -52,10 +13,14 @@ const Home: React.FC = () => {
         <title>Welcome to My blog site</title>
         <link rel="icon" href="/icon.png"></link>
       </Head>
-      <div className="bg-index h-screen w-screen bg-index flex items-center flex-col">
-        <div className="w-screen  flex justify-between px-6 mt-8 min-w-220">
+      <div className="bg-index h-screen w-full bg-index flex items-center flex-col">
+        <div className="w-full flex justify-between px-6 mt-8 min-w-220">
           <Image src="/icon.png" width={34} height={34}></Image>
-          <Image src="/Menu.png" width={34} height={34}></Image>
+          <Link href="/editBlog" prefetch={false}>
+            <a className="cursor-pointer">
+              <Image src="/Menu.png" width={34} height={34}></Image>
+            </a>
+          </Link>
         </div>
         <div className="max-w-600 min-w-280">
           <div className="flex justify-between mt-40">
@@ -84,20 +49,20 @@ const Home: React.FC = () => {
             <h2 className="text-2xl">My Note</h2>
             <ul className="flex w-70 justify-between items-center">
               {
-                skillType.map((item, index) => <li key={index} className={item.id === optionIndex ? "text-dark-900" : "text-primarily"} onClick={() => setOptionIndex(item.id)}><a className="cursor-pointer">{item.name}</a></li>)
+                skillType.map((item, index) => <li key={index} onClick={() => setOptionIndex(item.id)}><a className={`cursor-pointer ${item.id === optionIndex ? "text-dark-900" : "text-primarily"}`}>{item.name}</a></li>)
               }
             </ul>
           </div>
           <div className="mt-5 mb-10 text-primarily">Please point out any mistakes in the notes.</div>
           <div className="flex flex-wrap w-280 justify-between h-319 content-between">
             {
-              router.map((item, index) => <Link key={index} href={`blog/${item.link}`}><div><Image className="cursor-pointer" src={item.image} width={540} height={400}></Image></div></Link>)
+              router.map((item, index) => <Link key={index} href={{ pathname: `blog/${item.link}` }}><a><Image className="cursor-pointer" src={item.image} width={540} height={400}></Image></a></Link>)
             }
           </div>
         </div>
       </div>
       {/* 底部 */}
-      <div className="flex justify-center my-40">
+      <div className="flex justify-center py-40">
         <div className="flex w-80 text-primarily justify-between">
           {
             socialPlatform.map((item, index) => <Link key={index} href={item.link}>{item.name}</Link>)

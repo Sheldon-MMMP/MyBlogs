@@ -5,23 +5,31 @@ import Header from '../../components/Header'
 import { ARTICLE, DIRECTORY } from '../../api/api'
 import 'github-markdown-css'
 import Image from 'next/image'
-
-interface directoryDefine {
-  article_id: number,
-  article_name: string,
-  category_id: string,
-  created_at: Date,
-  md_path: string,
-  type_id: string,
-  updated_at: Date
-}
+import hljs from 'highlight.js'  // 引入highlight.js库
+import 'highlight.js/styles/github.css'  // 引入github风格的代码高亮样式
+import { directoryDefine, speciedPropsDefine } from '../../local/define'
 
 // 解析md文件
 const md = require('markdown-it')({
   html: true,
   linkify: true,
   typographer: true,
+  highlight: function (str: string, lang: any) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str, true).value;
+      } catch (__) { }
+    }
+    return ''; // 使用额外的默认转义
+  }
 });
+
+// 如果直接使用useRouter() 获取数据的话，不能立刻拿到数据，我们这个时我们就可以使用getServerSideProps()向组件通过props的形式进行传入，这样就可以立刻拿到路由参数。
+export async function getServerSideProps(context: any) {
+  return {
+    props: { params: context.params }
+  }
+}
 
 
 /*
@@ -29,14 +37,13 @@ const md = require('markdown-it')({
   @type：是那类型的文章：如：doc等
   @id：是文章的编号
 */
-const Blog: React.FC = () => {
-  const router = useRouter();
-  let { species } = router.query;
+const Blog: React.FC<speciedPropsDefine> = (props: speciedPropsDefine) => {
+  let { species } = props.params
+
   const [result, setResult] = useState("无")
   const [directory, setDirectory]: [directory: directoryDefine[], setDirectory: Function] = useState([]);
   const [type, setType] = useState("doc");
   const [content, setContent]: any = useState("无");
-
 
   const getContent = (category: string, id: number) => {
     // 请求文章数据
@@ -49,6 +56,11 @@ const Blog: React.FC = () => {
     })
   }
 
+  /**
+   * 发送请求函数
+   * @param category 是什么类的文章如：js，html等
+   * @param type 当前文章是什么类型
+   */
   const getDirectory = async (category: string, type: string) => {
     // 获取目录
     const data: any = await DIRECTORY({ category, type })
@@ -65,14 +77,8 @@ const Blog: React.FC = () => {
   }
 
   useEffect(() => {
-    /*
-    出现问题一：useEffect的执行时间：重外部链接跳到该页面时，外面的现在执行。
-               在当前页面刷新时，先执行useEffect。
-    解决方法：监听你需要外部的那个值，就可以了
-    */
-    if (species) {
+    if (species)
       getDirectory(species as string, type)
-    }
   }, [type, species])
 
 
@@ -80,6 +86,7 @@ const Blog: React.FC = () => {
     <div className='min-h-100vh flex flex-col relative'>
       <Head>
         <title>{species}</title>
+        <link rel="icon" href="/icon.png"></link>
       </Head>
       <div className='sticky top-0 bg-light-50'>
         <Header getMsg={getType} title={species as string} ></Header>

@@ -1,9 +1,9 @@
 import App from 'next/app'
 import { withRouter } from 'next/router';
 import React from 'react';
-import 'windi.css'
-
-
+import 'windi.css';
+import 'antd/dist/antd.css';
+import './index.css'
 class MyApp extends App {
   render() {
     const { pageProps } = this.props
